@@ -66,11 +66,18 @@ const Dashboard = ({ setIsAuthenticated }) => {
     localStorage.setItem('bookmarks', JSON.stringify(updated));
   };
 
+  const logout = () => {
+    localStorage.removeItem('token');
+    setIsAuthenticated(false);
+  };
+
+
 
   return (
     <div className="p-6 max-w-3xl mx-auto">
       <div className="flex justify-between items-center mb-4">
         <h1 className="text-2xl font-bold">Link Saver</h1>
+        <button onClick={logout} className="text-sm text-red-500">Logout</button>
       </div>
       <div className="flex mb-4 gap-2">
         <input
