@@ -72,30 +72,34 @@ const Dashboard = ({ setIsAuthenticated }) => {
   };
 
 
-
   return (
-    <div className="p-6 max-w-3xl mx-auto">
-      <div className="flex justify-between items-center mb-4">
-        <h1 className="text-2xl font-bold">Link Saver</h1>
-        <button onClick={logout} className="text-sm text-red-500">Logout</button>
-      </div>
-      <div className="flex mb-4 gap-2">
-        <input
-          value={url}
-          onChange={(e) => setUrl(e.target.value)}
-          placeholder="Paste a URL..."
-          className="input flex-1"
-        />
-        <button onClick={handleSave} className="btn" disabled={loading}>
-          {loading ? 'Saving...' : 'Save & Summarize'}
-        </button>
-      </div>
-      <div className="grid gap-4">
-        {bookmarks.map((b) => (
-          <BookmarkCard key={b.id} bookmark={b} onDelete={handleDelete} />
-        ))}
-      </div>
-    </div>
+    <div className="container bg-linear-65 from-purple-300 to-blue-500">
+      <div className="content px-50 py-10">
+        <div className="head bg-slate-200 px-10 pt-5 pb-2">
+            <div className="flex justify-between items-center mb-4">
+                <h1 className="text-2xl font-bold">Link Saver</h1>
+                <button onClick={logout} className="text-lg bg-orange-500 text-white px-4 py-2 rounded-lg">Logout</button>
+            </div>
+            <div className="flex mb-4 gap-2">
+                <input
+                value={url}
+                onChange={(e) => setUrl(e.target.value)}
+                placeholder="Paste a URL..."
+                className="input flex-1 px-3 py-2 border-1 rounded-md"
+                />
+                <button onClick={handleSave} className="btn text-blue-800 font-bold" disabled={loading}>
+                {loading ? 'Saving...' : 'Save & Summarize'}
+                </button>
+            </div>
+        </div>
+
+            <div className="grid gap-4">
+                {bookmarks.map((b) => (
+                <BookmarkCard key={b.id} bookmark={b} onDelete={handleDelete} />
+                ))}
+            </div>
+        </div>
+     </div>
   );
 };
 
