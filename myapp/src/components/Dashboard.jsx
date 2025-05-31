@@ -22,24 +22,36 @@ const Dashboard = ({ setIsAuthenticated }) => {
     setBookmarks(saved);
   }, []);
 
-  const extractTitleFromSummary = ({summary, url}) => {
-    const lines = summary.split('\n').map(line => line.trim());
-    let title = url;
-    const contentLines = [];
+const extractTitleFromSummary = ({ summary, url }) => {
+  const lines = summary.split('\n').map(line => line.trim());
+  let title = url;
+  const contentLines = [];
 
-    for (const line of lines) {
-      if (line.toLowerCase().startsWith('title:')) {
-        title = line.replace(/^title:\s*/i, '');
-      } else {
-        contentLines.push(line);
-      }
+  for (const line of lines) {
+    const lowerLine = line.toLowerCase();
+
+    // Check and extract title
+    if (lowerLine.startsWith('title:')) {
+      title = line.replace(/^title:\s*/i, '').trim();
+    } 
+    // Skip line if it's exactly the URL or contains the URL
+    else if (line === url || line.includes(url)) {
+      continue;
+    } 
+    // Otherwise, include the line in description
+    else {
+      contentLines.push(line);
     }
+  }
 
-    const description = contentLines.join('\n').trim();
-    console.log('Extracted title:', title);
-    console.log('Extracted description:', description);
-    return { title, description };
-  };
+  const description = contentLines.join('\n').trim();
+
+  console.log('Extracted title:', title);
+  console.log('Cleaned description:', description);
+
+  return { title, description };
+};
+
 
 
   const getSummary = async (url) => {
@@ -86,33 +98,42 @@ const Dashboard = ({ setIsAuthenticated }) => {
 
 
   return (
-    <div className="container bg-violet-300">
-      <div className="content px-50 py-10">
-        <div className="head bg-slate-200 px-10 pt-5 pb-2">
-            <div className="flex justify-between items-center mb-4">
-                <h1 className="text-2xl font-bold">Link Saver</h1>
-                <button onClick={logout} className="text-lg bg-orange-500 text-white px-4 py-2 rounded-lg">Logout</button>
-            </div>
-            <div className="flex mb-4 gap-2">
-                <input
-                value={url}
-                onChange={(e) => setUrl(e.target.value)}
-                placeholder="Paste a URL..."
-                className="input flex-1 px-3 py-2 border-1 rounded-md"
-                />
-                <button onClick={handleSave} className="btn text-blue-800 font-bold" disabled={loading}>
-                {loading ? 'Saving...' : 'Save & Summarize'}
-                </button>
-            </div>
+    <div className="container mx-auto bg-violet-300 min-h-screen px-4">
+      <div className="content max-w-4xl mx-auto py-10">
+        <div className="head bg-slate-200 px-6 sm:px-10 pt-5 pb-2 rounded-lg shadow-md">
+          <div className="flex flex-col sm:flex-row justify-between items-center mb-4 gap-4">
+            <h1 className="text-2xl font-bold text-center sm:text-left">Link Saver</h1>
+            <button
+              onClick={logout}
+              className="text-lg bg-orange-500 text-white px-4 py-2 rounded-lg w-full sm:w-auto"
+            >
+              Logout
+            </button>
+          </div>
+          <div className="flex flex-col sm:flex-row mb-4 gap-2">
+            <input
+              value={url}
+              onChange={(e) => setUrl(e.target.value)}
+              placeholder="Paste a URL..."
+              className="input flex-1 px-3 py-2 border border-gray-300 rounded-md w-full"
+            />
+            <button
+              onClick={handleSave}
+              className="btn text-blue-800 font-bold px-4 py-2 bg-white border border-blue-800 rounded-md"
+              disabled={loading}
+            >
+              {loading ? 'Saving...' : 'Save & Summarize'}
+            </button>
+          </div>
         </div>
 
-        <div className="">
-            {bookmarks.map((b) => (
+        <div className="mt-6 space-y-4">
+          {bookmarks.map((b) => (
             <BookmarkCard key={b.id} bookmark={b} onDelete={handleDelete} />
-            ))}
+          ))}
         </div>
       </div>
-     </div>
+    </div>
   );
 };
 

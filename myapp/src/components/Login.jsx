@@ -14,28 +14,29 @@ const Login = ({ setIsAuthenticated }) => {
   };
 
   return (
-    <div className="h-screen flex items-center justify-center bg-linear-65 from-purple-300 to-blue-500">
-      <div className="bg-white p-6 shadow-lg w-100 flex flex-col rounded-xl">
-        <h2 className="text-xl font-bold mb-6 flex">Login</h2>
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-purple-300 to-blue-500 px-4">
+      <div className="bg-white p-6 shadow-lg w-full max-w-md flex flex-col rounded-xl">
+        <h2 className="text-xl font-bold mb-6 flex justify-center">Link Summary</h2>
         <input
           type="email"
           placeholder="Email"
-          className="input w-full my-2 border-1 px-4 py-2 rounded-lg"
+          className="input w-full my-2 border border-gray-300 px-4 py-2 rounded-lg"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
         <input
           type="password"
           placeholder="Password"
-          className="input my-2 w-full border-1 px-4 py-2 rounded-lg"
+          className="input w-full my-2 border border-gray-300 px-4 py-2 rounded-lg"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-        <button className="btn mt-4 rounded-lg bg-blue-500 px-4 py-2" onClick={handleLogin}>
+        <button onClick={handleLogin} className="btn mt-4 rounded-lg bg-blue-500 text-white px-4 py-2 hover:bg-blue-600 transition">
           Login
         </button>
       </div>
     </div>
+
   );
 };
 
