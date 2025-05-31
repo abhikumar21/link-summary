@@ -22,12 +22,25 @@ const Dashboard = ({ setIsAuthenticated }) => {
     setBookmarks(saved);
   }, []);
 
-  const fetchTitle = async (url) => {
-    const res = await fetch(url);
-    const html = await res.text();
-    const match = html.match(/<title>(.*?)<\/title>/is);
-    return match ? match[1] : 'No Title';
+  const extractTitleFromSummary = ({summary, url}) => {
+    const lines = summary.split('\n').map(line => line.trim());
+    let title = url;
+    const contentLines = [];
+
+    for (const line of lines) {
+      if (line.toLowerCase().startsWith('title:')) {
+        title = line.replace(/^title:\s*/i, '');
+      } else {
+        contentLines.push(line);
+      }
+    }
+
+    const description = contentLines.join('\n').trim();
+    console.log('Extracted title:', title);
+    console.log('Extracted description:', description);
+    return { title, description };
   };
+
 
   const getSummary = async (url) => {
     try {
@@ -44,13 +57,13 @@ const Dashboard = ({ setIsAuthenticated }) => {
       return;
     }
     setLoading(true);
-    const title = await fetchTitle(url);
     const summary = await getSummary(url);
+    const {title, description} = extractTitleFromSummary({summary, url});
     const newBookmark = {
       id: Date.now(),
       url,
       title,
-      summary,
+      description,
       createdAt: new Date().toISOString(),
     };
     const updated = [newBookmark, ...bookmarks];
@@ -73,7 +86,7 @@ const Dashboard = ({ setIsAuthenticated }) => {
 
 
   return (
-    <div className="container bg-linear-65 from-purple-300 to-blue-500">
+    <div className="container bg-violet-300">
       <div className="content px-50 py-10">
         <div className="head bg-slate-200 px-10 pt-5 pb-2">
             <div className="flex justify-between items-center mb-4">
@@ -93,12 +106,12 @@ const Dashboard = ({ setIsAuthenticated }) => {
             </div>
         </div>
 
-            <div className="grid gap-4">
-                {bookmarks.map((b) => (
-                <BookmarkCard key={b.id} bookmark={b} onDelete={handleDelete} />
-                ))}
-            </div>
+        <div className="">
+            {bookmarks.map((b) => (
+            <BookmarkCard key={b.id} bookmark={b} onDelete={handleDelete} />
+            ))}
         </div>
+      </div>
      </div>
   );
 };
