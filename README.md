@@ -51,6 +51,26 @@ Email: demo@test.com
 Password: password123
 ```
 
+## Time breakdown
+| Task  | Hours |
+| ------------- | ------------- |
+| Setup & Authentication  | 0.5  |
+| Summarizer + Save Logic	  | 3  |
+| View/Delete Functionality	  | 1.5  |
+| Styling + Responsiveness	  | 1  |
+| Testing + Polish	  | 1  |
+| Total	  | 7  |
+
+
+
+Task	Hours
+Setup & Authentication	1
+Summarizer + Save Logic	2
+View/Delete Functionality	1.5
+Styling + Responsiveness	1.5
+Testing + Polish	1
+Total	~7 hrs
+
 ## Improvements (Next Step)
 - Add search and filter options
 - Create backend to scrape titles (bypassing CORS)
