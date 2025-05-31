@@ -16,6 +16,8 @@ A minimalist, mobile-friendly web app to save, summarize, and manage links using
 
 ---
 
+![image alt](https://github.com/abhikumar21/link-summary/blob/b1026db8c4122e5357495dc5689363284e3696a7/Screenshot%20(114)1.png)
+
 ## Tech Stack
 
 - **Frontend**: React (with Vite)
