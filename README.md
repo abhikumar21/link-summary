@@ -2,6 +2,8 @@
 
 A minimalist, mobile-friendly web app to save, summarize, and manage links using the [Jina AI Summarizer](https://r.jina.ai). Built with **React + Vite + Tailwind CSS**, it includes simple authentication, localStorage-based bookmark management, and smooth responsive design.
 
+![image alt](https://github.com/abhikumar21/link-summary/blob/8e1e687f5733d6d2c97ce6e62307089c6a0bf7f6/Screenshot%20(112)1.png)
+
 ## 🛠 Features
 
 - **Demo Login**: `demo@test.com` / `password123`
